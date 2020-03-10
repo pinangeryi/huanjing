@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}太虚幻境{% endblock %} {#页面标题#}
+
+{% block content %}  {#页面内容#}
+    {% for blog in blogs %}
+        <a href="{% url 'blog_detail' blog.pk %}">
+            <h3>{{ blog.title }}</h3>
+        </a>
+        <p>{{ blog.content|truncatechars:150 }}</p>
+    {% empty %}
+        <p>-- 暂无分享，敬请期待 --</p>
+    {% endfor %}
+    <hr>
+    <p>一共有{{ blogs|length }}本书籍分享</p>
+{% endblock %}

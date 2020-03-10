@@ -1,0 +1,24 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+</head>
+<body>
+    <div class="nav">
+        <a class="logo" href="{% url 'home' %}">
+            <h3>幻境首页</h3>
+        </a>
+        <a href="">文学小说</a>
+        <a href="">英文原版</a>
+        <a href="">动漫绘本</a>
+        <a href="">教辅</a>
+        <a href="">计算机类</a>
+        <a href="">励志</a>
+        <a href="">历史</a>
+    </div>
+    {% block content %}{% endblock %}
+</body>
+</html>
