@@ -2,20 +2,9 @@
     padding: 0;
     margin: 0;
 }
-div.nav{
-    background: #eee;
-    border-bottom: 1px solid #ccc;
+body {
+    padding: 56px;
 }
-div.nav a{
-    text-decoration: none;  
-    color: black;
-    padding: 10px 20px;
-}
-div.nav a.logo {
-    display: inline-block;   
-}
-/* 鼠标移动到选项上修改背景颜色 */
-div.nav a:hover{
-    background-color: #555;
-    color: white;
+ul {
+    list-style-type:none!important;
 }

@@ -16,12 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from blog.views import blog_list
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
     path('', blog_list, name='home'),
     #path('', views.home, name='home'),     # http://localhost:8000
     path('admin/', admin.site.urls),
+    path('ckeditor', include('ckeditor_uploader.urls')),
     path('blog/', include('blog.urls')), # http://localhost:8000/blog/1
     
 ]
+
+urlpatterns += static('settings.MEDIA_URL', document_root=settings.MEDIA_ROOT)
