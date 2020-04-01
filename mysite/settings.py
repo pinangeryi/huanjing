@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'blog',
     'ckeditor',  #富文本编辑器
     'ckeditor_uploader', #富文本编辑器上传图片模块
+    'comment',
+    'likes',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'user.context_processors.login_modal_form',
             ],
         },
     },
@@ -110,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -121,18 +125,31 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',  # 工具条功能
-        'height': 300,  # 编辑器高度
-        'width': 800,  # 编辑器宽
-    },
+
+    'default': {},
+
+    'comment_ckeditor': {
+        'toolbar': 'custom',  # 工具条功能
+        'toolbar_custom':[
+             ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
+            ["TextColor", "BGColor", 'RemoveFormat'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ["Smiley", "SpecialChar", 'Blockquote'],
+        ],
+        'width': 'auto',
+        'height': '180',
+        'tabSpaces': 4,
+        'removePlugins': 'elementspath',
+        'resize_enabled': False,
+    }
 }
 
 # media
@@ -144,3 +161,22 @@ CKEDITOR_UPLOAD_PATH = 'upload/'
 
 #自定义参数
 EACH_PAGE_BLOGS_NUMBER = 4
+
+# 缓存设置
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}
+
+# 发送邮件设置
+# https://docs.djangoproject.com/en/2.0/ref/settings/#email
+# https://docs.djangoproject.com/en/2.0/topics/email/
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = '1048371952@qq.com'
+EMAIL_HOST_PASSWORD = 'dteaaizjopqkbfhi'  # 授权码
+EMAIL_SUBJECT_PREFIX = '[太虚幻境] '
+EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)
